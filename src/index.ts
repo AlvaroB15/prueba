@@ -1,30 +1,18 @@
-// @google-cloud/functions-framework
-// El cual esta basado en express.js
-
 import http from 'http';
+import { HOST_APP, PORT_APP } from './config/config';
+import { handleCard, handleToken } from './routes/tokenRoutes';
+import './config/mongoose';
 
-//Settings
-const host = 'localhost';
-const port = 4000;
-
-// middlewares
-
-//Routes
-
-
-//create a server
 const requestListener = function (req: any, res: any) {
     res.setHeader("Content-Type", "application/json");
+    const path = req.path;
+
     switch (req.url) {
-        case "/tokenizar":
-            res.writeHead(200);
-            res.write('Entro a /books')
-            res.end();
+        case "/token":
+            handleToken(req, res);
             break
-        case "/get-data-card":
-            res.writeHead(200);
-            res.write('Entro a /authors')
-            res.end();
+        case "/card":
+            handleCard(req, res);
             break
         default:
             res.writeHead(404);
@@ -34,6 +22,6 @@ const requestListener = function (req: any, res: any) {
 
 const server = http.createServer(requestListener);
 
-server.listen(port, host, () => {
-    console.log(`Server is running on http://${host}:${port}`);
+server.listen(PORT_APP, () => {
+    console.log(`Server is running on http://${HOST_APP}:${PORT_APP}`);
 }); 
