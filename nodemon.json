@@ -6,7 +6,7 @@
         "build",
         "node_modules"
     ],
-    "exec": "ts-node-dev ./src/index.ts",
+    "exec": "ts-node-dev ./src/app.ts",
     "events": {
         "restart": "npm run lint"
     }
