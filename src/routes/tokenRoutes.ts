@@ -3,6 +3,7 @@ import { IncomingMessage, ServerResponse } from "http";
 import { createToken } from "../utils/createToken";
 import { postDataCardGenerateToken } from "../controller/tokenController";
 import { getDataCard } from "../controller/cardController";
+import { IRequest } from "../interfaces/ICard";
 
 export const handleToken = async (req: IncomingMessage, res: ServerResponse) => {
 
@@ -28,18 +29,28 @@ export const handleCard = (req: IncomingMessage, res: ServerResponse) => {
 
 const funcionAreutilizar = (req: IncomingMessage, res: ServerResponse, metodo: string) => {
 
-    const tokenAuth : string | string[] | undefined = req.headers.token ;
-    const body: any = [];
+    const tokenAuth: string | string[] | undefined = req.headers.token;
+    const body: Buffer[] = [];
     let bodyString = "";
 
     req.on("error", (err) => {
         console.error(err);
-    }).on("data", (chunk) => {       
+    }).on("data", (chunk) => {
         body.push(chunk);
     }).on("end", async () => {
 
         bodyString = Buffer.concat(body).toString();
-        let dataResponse: any;
+        let dataResponse: IRequest = {
+            message: "",
+            data: {
+                card_number: 0,
+                cvv: 0,
+                expiration_month: "",
+                expiration_year: "",
+                email: ""
+            },
+            error: false,
+        };
 
         if (metodo === "handleToken") {
             const tokenGenerado = createToken();
