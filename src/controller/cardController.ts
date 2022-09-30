@@ -1,14 +1,13 @@
+import { ICard, IRequest } from '../interfaces/ICard';
 import { Card } from '../models/Card';
 import { validarToken, validateTokenAuth } from '../utils/validators';
 
 export const getDataCard = async (bodyString: any, tokenAuth: any) => {
 
-    let message = null;
-    let data = null;
+    let message = '';
+    let data: ICard | [] | null;
     let error = false;
-    let tokenGenerado;
-
-    tokenGenerado = JSON.parse(bodyString);
+    const tokenGenerado = JSON.parse(bodyString);
     const valToken = validarToken(tokenGenerado.token);
     const valTokenAuth = validateTokenAuth(tokenAuth.toString());
 
@@ -27,14 +26,17 @@ export const getDataCard = async (bodyString: any, tokenAuth: any) => {
         }
 
     } catch (err) {
-        message = err;
+        message = '' + err;
         error = true;
+        data = [];
     }
 
-    return {
+    const dataSent: IRequest = {
         message,
         data,
         error
     }
+
+    return dataSent;
 
 }

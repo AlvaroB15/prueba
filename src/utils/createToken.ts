@@ -6,12 +6,12 @@ export const createToken = () => {
 
     const arrayTotal = [...arrayNumeros, ...arrayLetraMinuscula, ...arrayLetraMayuscula];
 
-    let token: string = '';
-    let min = Math.ceil(0);
-    let max = Math.floor(61);
+    let token ='';
+    const min = Math.ceil(0);
+    const max = Math.floor(61);
 
     for (let i = 1; i <= 16; i++) {
-        let indice = Math.floor(Math.random() * (max - min + 1) + min);
+        const indice = Math.floor(Math.random() * (max - min + 1) + min);
         token += arrayTotal[indice];
     }
 

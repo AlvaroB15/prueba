@@ -7,8 +7,7 @@ export const validatorCard = (bodyJson: ICard) => {
     // expiration_year                  string                               Length:4                        Año actual máximo 5 años
     // email                            string                               Length:5..100                   Garantizar que sean email válidos utilizando los siguientes dominios “gmail.com”, “hotmail.com”, “yahoo.es”.
 
-    let hayError: boolean = false;
-    let messageError: string = '';
+    let messageError = '';
 
     if (!validarTarjetaLuhn(bodyJson.card_number)) return messageError = `El numero de tarjeta ${bodyJson.card_number} no pertenece a Visa / Mastercad / Amex`;
     if (!validateCvv(bodyJson.cvv)) return messageError = `El cvv ${bodyJson.cvv} debe ser de 3 (Visa/Mastercad) o 4 digitos(Amex)`;
@@ -20,8 +19,6 @@ export const validatorCard = (bodyJson: ICard) => {
 }
 
 const validarTarjetaLuhn = (card_number: number) => {
-    const msg = "Valor incorrecto";
-
     const VISA = /^4[0-9]{3}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/;
     const MASTERCARD = /^5[1-5][0-9]{2}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/;
     const AMEX = /^3[47][0-9-]{16}$/;
@@ -44,7 +41,7 @@ const validateYear = (expiration_year: string) => {
 }
 
 const validateEmail = (data: string) => {
-    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(hotmail.com|gmail.com|yahoo.es)/;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(hotmail.com|gmail.com|yahoo.es)/;
     return emailRegex.test(data);
 }
 
@@ -63,11 +60,11 @@ export const validarToken = (token: string) => {
     const arrayLetraMinuscula = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     const arrayNumeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    let tokenMinuscula = Array.from(token).map(data => data.toLowerCase());
+    const tokenMinuscula = Array.from(token).map(data => data.toLowerCase());
     console.log(tokenMinuscula)
 
     let error;
-    const dataParcial = tokenMinuscula.map(data => {
+    tokenMinuscula.map(data => {
         if (arrayLetraMinuscula.includes(data) || arrayNumeros.includes(parseInt(data))) {
             error = false;
         } else {

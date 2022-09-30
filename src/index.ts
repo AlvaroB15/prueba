@@ -1,12 +1,10 @@
-import http from 'http';
+import http, { IncomingMessage, ServerResponse } from 'http';
 import { HOST_APP, PORT_APP } from './config/config';
 import { handleCard, handleToken } from './routes/tokenRoutes';
 import './config/mongoose';
 
-const requestListener = function (req: any, res: any) {
+const requestListener = function (req: IncomingMessage, res: ServerResponse) {
     res.setHeader("Content-Type", "application/json");
-    const path = req.path;
-
     switch (req.url) {
         case "/token":
             handleToken(req, res);

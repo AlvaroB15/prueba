@@ -1,10 +1,10 @@
 import "../config/config"
-import { IncomingMessage } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 import { createToken } from "../utils/createToken";
 import { postDataCardGenerateToken } from "../controller/tokenController";
 import { getDataCard } from "../controller/cardController";
 
-export const handleToken = async (req: IncomingMessage, res: any) => {
+export const handleToken = async (req: IncomingMessage, res: ServerResponse) => {
 
     if (req.method === 'POST') {
         funcionAreutilizar(req, res, 'handleToken');
@@ -15,7 +15,7 @@ export const handleToken = async (req: IncomingMessage, res: any) => {
     }
 }
 
-export const handleCard = (req: IncomingMessage, res: any) => {
+export const handleCard = (req: IncomingMessage, res: ServerResponse) => {
 
     if (req.method === 'GET') {
         funcionAreutilizar(req, res, 'handleCard');
@@ -26,15 +26,17 @@ export const handleCard = (req: IncomingMessage, res: any) => {
     }
 }
 
-const funcionAreutilizar = (req: IncomingMessage, res: any, metodo: string) => {
+const funcionAreutilizar = (req: IncomingMessage, res: ServerResponse, metodo: string) => {
 
-    let tokenAuth = req.headers.token;
-    let body: any[] = [];
+    const tokenAuth = req.headers.token;
+    const body: any = [];
     let bodyString = '';
 
     req.on('error', (err) => {
         console.error(err);
     }).on('data', (chunk) => {
+        console.log({chunk});
+        
         body.push(chunk);
     }).on('end', async () => {
 
@@ -42,17 +44,25 @@ const funcionAreutilizar = (req: IncomingMessage, res: any, metodo: string) => {
         let dataResponse: any;
 
         console.log(bodyString);
+
+        console.log(typeof bodyString);
+        console.log(typeof tokenAuth);
+
+        console.log(bodyString);
+        console.log(tokenAuth);
         
+
 
         if (metodo === 'handleToken') {
             const tokenGenerado = createToken();
             dataResponse = await postDataCardGenerateToken(bodyString, tokenGenerado, tokenAuth);
-            console.log( 'La respuesta de handleToken es: ', dataResponse );
+            console.log('La respuesta de handleToken es: ', dataResponse);
         }
 
         if (metodo === 'handleCard') {
+
             dataResponse = await getDataCard(bodyString, tokenAuth);
-            console.log( 'La respuesta de getDataCard es: ', dataResponse );
+            console.log('La respuesta de getDataCard es: ', dataResponse);
         }
 
         res.writeHead(200, { "Content-Type": "application/json" });
