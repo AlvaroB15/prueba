@@ -25,7 +25,7 @@ const cardSchema = new Schema<ICard>({
     expireAt: {
         type: Date,
         default: Date.now,
-        index: { expires: '15m' },
+        index: { expires: "15m" },
     },
     token: {
         type: String,
@@ -33,4 +33,4 @@ const cardSchema = new Schema<ICard>({
 });
 
 // Creando el modelo
-export const Card = model<ICard>('Card', cardSchema);
+export const Card = model<ICard>("Card", cardSchema);

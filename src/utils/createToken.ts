@@ -1,12 +1,12 @@
 export const createToken = () => {
 
-    const arrayLetraMinuscula = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    const arrayLetraMinuscula = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     const arrayLetraMayuscula = arrayLetraMinuscula.map(data => data.toUpperCase());
     const arrayNumeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const arrayTotal = [...arrayNumeros, ...arrayLetraMinuscula, ...arrayLetraMayuscula];
 
-    let token ='';
+    let token ="";
     const min = Math.ceil(0);
     const max = Math.floor(61);
 
@@ -17,4 +17,4 @@ export const createToken = () => {
 
     return token;
 
-}
+};

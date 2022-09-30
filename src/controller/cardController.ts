@@ -1,10 +1,10 @@
-import { ICard, IRequest } from '../interfaces/ICard';
-import { Card } from '../models/Card';
-import { validarToken, validateTokenAuth } from '../utils/validators';
+import { ICard, IRequest } from "../interfaces/ICard";
+import { Card } from "../models/Card";
+import { validarToken, validateTokenAuth } from "../utils/validators";
 
-export const getDataCard = async (bodyString: any, tokenAuth: any) => {
+export const getDataCard = async (bodyString: string, tokenAuth: any) => {
 
-    let message = '';
+    let message = "";
     let data: ICard | [] | null;
     let error = false;
     const tokenGenerado = JSON.parse(bodyString);
@@ -13,20 +13,20 @@ export const getDataCard = async (bodyString: any, tokenAuth: any) => {
 
     try {
 
-        if (valToken != '') throw valToken;
-        if (valTokenAuth != '') throw valTokenAuth;
+        if (valToken != "") { throw valToken; }
+        if (valTokenAuth != "") { throw valTokenAuth; }
         data = await Card.findOne({ token: tokenGenerado.token })
-            .select('-_id card_number expiration_month expiration_year email token');
-        console.log('data dentro del controller :', data);
+            .select("-_id card_number expiration_month expiration_year email token");
+
         if (data !== null) {
-            message = `se encontro correctamente el registro del token ${tokenGenerado.token}`
+            message = `se encontro correctamente el registro del token ${tokenGenerado.token}`;
         } else {
-            message = `No se encontro el token, recuerde que cada 15 minutos se borran los registros, intente generar un token de nuevo`;
+            message = "No se encontro el token, recuerde que cada 15 minutos se borran los registros, intente generar un token de nuevo";
             data = [];
         }
 
     } catch (err) {
-        message = '' + err;
+        message = "" + err;
         error = true;
         data = [];
     }
@@ -35,8 +35,8 @@ export const getDataCard = async (bodyString: any, tokenAuth: any) => {
         message,
         data,
         error
-    }
+    };
 
     return dataSent;
 
-}
+};
