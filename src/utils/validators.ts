@@ -47,6 +47,7 @@ const validateEmail = (data: string) => {
 
 export const validateTokenAuth = (token: string) => {
     let messageError = "";
+    if (token === "") { return "Debe mandar un token de autorizacion valido o con data"; }
     if (!token.includes("pk_test_")) { return messageError = `El token ${token} no cumple con el formato pk_test_`; }
     return messageError;
 };

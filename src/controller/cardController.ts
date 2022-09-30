@@ -2,7 +2,7 @@ import { ICard, IRequest } from "../interfaces/ICard";
 import { Card } from "../models/Card";
 import { validarToken, validateTokenAuth } from "../utils/validators";
 
-export const getDataCard = async (bodyString: string, tokenAuth: any) => {
+export const getDataCard = async (bodyString: string, tokenAuth :string | string[] | undefined="") => {
 
     let message = "";
     let data: ICard | [] | null;

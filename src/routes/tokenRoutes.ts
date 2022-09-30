@@ -28,7 +28,7 @@ export const handleCard = (req: IncomingMessage, res: ServerResponse) => {
 
 const funcionAreutilizar = (req: IncomingMessage, res: ServerResponse, metodo: string) => {
 
-    const tokenAuth = req.headers.token;
+    const tokenAuth : string | string[] | undefined = req.headers.token ;
     const body: any = [];
     let bodyString = "";
 
