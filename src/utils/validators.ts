@@ -18,7 +18,7 @@ export const validatorCard = (bodyJson: ICard) => {
     return messageError;
 };
 
-const validarTarjetaLuhn = (card_number: number) => {
+export const validarTarjetaLuhn = (card_number: number) => {
     const VISA = /^4[0-9]{3}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/;
     const MASTERCARD = /^5[1-5][0-9]{2}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/;
     const AMEX = /^3[47][0-9-]{16}$/;
@@ -26,21 +26,21 @@ const validarTarjetaLuhn = (card_number: number) => {
     return VISA.test(card_number.toString()) || MASTERCARD.test(card_number.toString()) || AMEX.test(card_number.toString());
 };
 
-const validateCvv = (cvv: number) => {
+export const validateCvv = (cvv: number) => {
     return cvv.toString().length >= 3 && cvv.toString().length <= 4;
 };
 
-const validateMonth = (numberMount: string) => {
+export const validateMonth = (numberMount: string) => {
     return (parseInt(numberMount) >= 1 && parseInt(numberMount) <= 12);
 };
 
-const validateYear = (expiration_year: string) => {
+export const validateYear = (expiration_year: string) => {
     const today = new Date();
     const currentYear = today.getFullYear();
     return parseInt(expiration_year) >= currentYear && parseInt(expiration_year) <= currentYear + 5;
 };
 
-const validateEmail = (data: string) => {
+export const validateEmail = (data: string) => {
     const emailRegex = /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(hotmail.com|gmail.com|yahoo.es)/;
     return emailRegex.test(data);
 };
@@ -52,7 +52,7 @@ export const validateTokenAuth = (token: string) => {
     return messageError;
 };
 
-export const validarToken = (token: string) => {
+export const validarToken = (token = "") => {
     let messageError = "";
     // let token = 'uQGGPWKe6M7u359S';
 
