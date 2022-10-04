@@ -1,5 +1,14 @@
 # PRUEBA TECNICA - ALVARO BEGAZO CARHUAYO
 
+- Si se desea hacer en docker, el 8000 se cambia por un puerto que uno desee y que este libre claro esta
+
+```
+docker pull alvarob15/prueba-tecnica:latest
+
+docker run -d -p 8000:4000 alvarob15/prueba-tecnica
+
+```
+
 URL de los lambdas.
 
 POST ```http://localhost:4000/card```
