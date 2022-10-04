@@ -54,23 +54,21 @@ export const validateTokenAuth = (token: string) => {
 
 export const validarToken = (token = "") => {
     let messageError = "";
-    // let token = 'uQGGPWKe6M7u359S';
-
     if (token.length !== 16) { return messageError = "El token debe tener 16 digitos"; }
 
-    const arrayLetraMinuscula = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    const arrayNumeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const arrayLetraMinusculaNumero = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
     const tokenMinuscula = Array.from(token).map(data => data.toLowerCase());
-
     let error;
-    tokenMinuscula.map(data => {
-        if (arrayLetraMinuscula.includes(data) || arrayNumeros.includes(parseInt(data))) {
+
+    for (let i = 0; i < tokenMinuscula.length; i++) {
+        if (arrayLetraMinusculaNumero.includes(tokenMinuscula[i])) {
             error = false;
         } else {
             error = true;
+            break;
         }
-    });
+    }
 
     if (error) { return messageError = "El token no cumple con sus requisitos (tener 16 caracteres, donde utiliza números, letras minúsculas, letras mayúsculas)"; }
     return messageError;
