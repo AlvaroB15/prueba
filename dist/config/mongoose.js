@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.connectDB = void 0;
 const mongoose_1 = require("mongoose");
 const config_1 = require("./config");
 // connection to db
-(() => __awaiter(void 0, void 0, void 0, function* () {
+exports.connectDB = (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const db = yield (0, mongoose_1.connect)(config_1.MONGODB_URI);
         console.log("Db connectect to", db.connection.name);
