@@ -18,7 +18,7 @@ POST ```https://wih9qhb4eg.execute-api.us-east-1.amazonaws.com/dev/generar-token
 
 ```
 
-POST ```https://wih9qhb4eg.execute-api.us-east-1.amazonaws.com/dev/data-token```
+POST ```http://localhost:4000/card```
 
 La data provisional para las pruebas 
 
